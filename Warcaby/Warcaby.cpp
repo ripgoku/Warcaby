@@ -7,7 +7,7 @@
 int main(int argc, char** argv)
 {
     Engine engine(argc, argv);
-    engine.init();
+    engine.init(1920, 1080, true, "Warcaby 3D");
     engine.run();
     return 0;
 }
