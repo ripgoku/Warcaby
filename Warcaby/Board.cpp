@@ -5,6 +5,10 @@ Board::Board() {
     initializeBoard();
 }
 
+Board::~Board() {
+    clearBoard();
+}
+
 void Board::initializeBoard() {
     blackNumber = whiteNumber = 12;
     board.resize(8, std::vector<Piece*>(8, nullptr));
@@ -79,7 +83,7 @@ void Board::renderBoard() {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
             SquareType sqType = ((i + j) % 2 == 0) ? SquareType::LIGHT_SQUARE : SquareType::DARK_SQUARE;
-            if (getSelectedPiece() != nullptr && isValidMove(getSelectedPiece()->getPosition().x, getSelectedPiece()->getPosition().y, j, i))
+            if (getSelectedPiece() != nullptr && !getSelectedPiece()->getAnimation() && isValidMove(getSelectedPiece()->getPosition().x, getSelectedPiece()->getPosition().y, j, i))
                 sqType = SquareType::HIGHLIGHT_DARK_SQUARE;
             
             renderSquare(currentX, y, currentZ, size, sqType);
@@ -121,6 +125,7 @@ bool Board::movePiece(int startX, int startY, int endX, int endY, Turn turn) {
 
                     delete board[midY][midX]; 
                     board[midY][midX] = nullptr;
+                    this->captured = true;
                 }
                 if ((endY == 0 && piece->getColor() == PieceColor::WHITE) ||
                     (endY == 7 && piece->getColor() == PieceColor::BLACK))
@@ -152,29 +157,6 @@ bool Board::isValidMove(int startX, int startY, int endX, int endY) {
     PieceType pieceType = piece->getType();
     PieceColor color = piece->getColor();
 
-    auto canCapture = [&](int x, int y, PieceColor color) -> bool {
-        std::vector<std::pair<int, int>> directions = {
-            {2, 2}, {2, -2}, {-2, 2}, {-2, -2}
-        };
-
-        for (const auto& dir : directions) {
-            int targetX = x + dir.first;
-            int targetY = y + dir.second;
-            int midX = x + dir.first / 2;
-            int midY = y + dir.second / 2;
-
-            if (isInBounds(targetX, targetY) && isInBounds(midX, midY)) {
-                Piece* targetPiece = board[targetY][targetX];
-                Piece* middlePiece = board[midY][midX];
-
-                if (targetPiece == nullptr && middlePiece != nullptr && middlePiece->getColor() != color) {
-                    return true;
-                }
-            }
-        }
-        return false;
-        };
-
     bool mandatoryCapture = false;
     for (int y = 0; y < 8; ++y) {
         for (int x = 0; x < 8; ++x) {
@@ -189,9 +171,9 @@ bool Board::isValidMove(int startX, int startY, int endX, int endY) {
         if (mandatoryCapture) break;
     }
 
-    if (abs(deltaX) == 2 && abs(deltaY) == 2) {
-        int midX = (startX + endX) / 2;
-        int midY = (startY + endY) / 2;
+    if (abs(deltaX) == 2 && abs(deltaY) == 2 && canCapture(startX, startY, board[startY][startX]->getColor())) { // zle
+        int midX = (startX + endX) / 2; //5
+        int midY = (startY + endY) / 2; //5
         Piece* middlePiece = board[midY][midX];
 
         if (middlePiece == nullptr || middlePiece->getColor() == piece->getColor()) {
@@ -208,12 +190,12 @@ bool Board::isValidMove(int startX, int startY, int endX, int endY) {
     if (pieceType != PieceType::KING) {
         if (color == PieceColor::WHITE) {
             if (deltaY > 0) {
-                return false; 
+                return false;
             }
         }
         else if (color == PieceColor::BLACK) {
             if (deltaY < 0) {
-                return false; 
+                return false;
             }
         }
     }
@@ -223,6 +205,37 @@ bool Board::isValidMove(int startX, int startY, int endX, int endY) {
     }
 
     return false; 
+}
+
+bool Board::canCapture(int x, int y, PieceColor color) {
+    Piece* piece = board[y][x];
+    if (!piece) return false;
+
+    std::vector<std::pair<int, int>> directions;
+    if (piece->getType() == PieceType::KING) {
+        directions = { {2, 2}, {2, -2}, {-2, 2}, {-2, -2} };
+    }
+    else {
+        directions = (color == PieceColor::WHITE) ? std::vector<std::pair<int, int>>{{2, -2}, { -2, -2 }}
+        : std::vector<std::pair<int, int>>{ {2, 2}, {-2, 2} };
+    }
+
+    for (const auto& dir : directions) {
+        int targetX = x + dir.first; //6, 2
+        int targetY = y + dir.second; //2, 2
+        int midX = (targetX + x) / 2; //5, 3
+        int midY = (targetY + y) / 2; //3, 3
+
+        if (isInBounds(targetX, targetY) && isInBounds(midX, midY)) {
+            Piece* targetPiece = board[targetY][targetX];
+            Piece* middlePiece = board[midY][midX];
+
+            if (targetPiece == nullptr && middlePiece != nullptr && middlePiece->getColor() != color) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 void Board::selectPiece(int x, int y, Turn playerTurn) {
@@ -245,6 +258,7 @@ void Board::deselectAllPieces() {
             }
         }
     }
+    selectedPiece = nullptr;
 }
 
 bool Board::isInBounds(int x, int y) {

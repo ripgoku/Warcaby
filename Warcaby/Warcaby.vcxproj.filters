@@ -116,5 +116,18 @@
     <ClInclude Include="..\imgui\imstb_truetype.h">
       <Filter>Pliki nagłówkowe\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Warcaby.rc">
+      <Filter>Pliki zasobów</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\x64\Release\Textures\W3d.ico">
+      <Filter>Pliki zasobów</Filter>
+    </Image>
   </ItemGroup>
 </Project>

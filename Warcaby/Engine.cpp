@@ -40,6 +40,21 @@ void Engine::init(int width, int height, bool fullscreen, const char* name) {
         glutFullScreen();
     }
 
+    wchar_t wWindowTitle[256];
+    MultiByteToWideChar(CP_UTF8, 0, windowTitle, -1, wWindowTitle, 256);
+    wchar_t wIconPath[256];
+    MultiByteToWideChar(CP_UTF8, 0, "Textures/W3d.ico", -1, wIconPath, 256);
+
+    HWND hwnd = FindWindow(NULL, wWindowTitle);
+    HICON hIcon = (HICON)LoadImage(NULL, wIconPath, IMAGE_ICON, 0, 0, LR_LOADFROMFILE | LR_DEFAULTSIZE | LR_SHARED);
+    if (hIcon) {
+        SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)hIcon);
+        SendMessage(hwnd, WM_SETICON, ICON_SMALL, (LPARAM)hIcon);
+    }
+    else {
+        fprintf(stderr, "Failed to load icon\n");
+    }
+
     GLenum glewStatus = glewInit();
     if (glewStatus != GLEW_OK) {
         fprintf(stderr, "glewInit error: %s\n", glewGetErrorString(glewStatus));
@@ -80,6 +95,7 @@ void Engine::setupViewport() {
 
 void Engine::run() {
     glutMainLoop();
+    cleanUp();
 }
 
 void Engine::update() {
@@ -113,6 +129,12 @@ void Engine::update() {
             gameBoard.getSelectedPiece()->setXyzPosition(glm::vec3(dx - 3.5, 0.0f, dz - 3.5));
             gameBoard.movePiece(gameBoard.getSelectedPiece()->getPosition().x, gameBoard.getSelectedPiece()->getPosition().y, gameBoard.getSelectedPiece()->getDestPosition().x, gameBoard.getSelectedPiece()->getDestPosition().y, playerTurn);
             gameBoard.getSelectedPiece()->setAnimation(false);
+            if (gameBoard.captured == true)
+            {
+                gameBoard.captured = false;
+                if(gameBoard.canCapture(dx, dz, gameBoard.getSelectedPiece()->getColor()))
+                    return;
+            }
             gameBoard.deselectAllPieces();
             if(!gameBoard.checkGameOver())
                 switchTurn();
@@ -259,7 +281,7 @@ void Engine::mouseClick(int button, int state, int x, int y) {
         int boardX = static_cast<int>(posX + 4);
         int boardY = static_cast<int>(posZ + 4);
 
-        if (gameBoard.getPieceAt(boardX, boardY) != nullptr) {
+        if (gameBoard.getPieceAt(boardX, boardY) != nullptr && (gameBoard.getSelectedPiece() == nullptr || (gameBoard.getSelectedPiece() != nullptr && gameBoard.getSelectedPiece()->getAnimation() == false))) {
             gameBoard.selectPiece(boardX, boardY, playerTurn);
         }
         else if (gameBoard.getSelectedPiece() != nullptr) {
@@ -297,6 +319,7 @@ void Engine::setFramesPerSec(int newFramesPerSec) {
 void Engine::cleanUp() {
     cleanupImGui();
     glutDestroyWindow(glutGetWindow());
+    gameBoard.clearBoard();
 }
 
 void Engine::timer(int value) {

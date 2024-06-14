@@ -167,7 +167,14 @@
     <ClInclude Include="LightingManager.h" />
     <ClInclude Include="LightSource.h" />
     <ClInclude Include="Piece.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Texture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Warcaby.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\x64\Release\Textures\W3d.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

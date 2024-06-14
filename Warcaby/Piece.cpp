@@ -43,7 +43,7 @@ PieceColor Piece::getColor() const {
 }
 
 void Piece::setMaterial() {
-    if (selected) {
+    if (selected && !animation) {
         setMaterialColor(0.5f, 0.5f, 0.9f);
     }
     else {

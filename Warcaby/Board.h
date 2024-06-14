@@ -10,6 +10,7 @@ enum class SquareType { LIGHT_SQUARE, DARK_SQUARE, HIGHLIGHT_DARK_SQUARE };
 class Board {
 public:
     Board();
+    ~Board();
     void initializeBoard();
     bool isInBounds(int x, int y);
     void renderBoard();
@@ -19,8 +20,10 @@ public:
     void selectPiece(int x, int y, Turn playerTurn);
     void deselectAllPieces();
     Piece* getSelectedPiece();
+    bool canCapture(int x, int y, PieceColor color);
     bool checkGameOver();
     void clearBoard();
+    bool captured = false;
 
 private:
     std::vector<std::vector<Piece*>> board;
