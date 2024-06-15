@@ -26,9 +26,10 @@ glm::vec3 Camera::getPosition() {
 
 void Camera::move(const glm::vec3& offset) {
     if (freeMode)
+    {
         position += offset * movementSpeed;
-
-    updateCameraVectors();
+        updateCameraVectors();
+    }
 }
 
 void Camera::rotate() {
