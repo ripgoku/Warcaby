@@ -7,15 +7,15 @@ Texture::Texture() : ID(0) {
 }
 
 Texture::~Texture() {
-    glDeleteTextures(1, &ID);
-}
-
-void Texture::bind(unsigned int slot) const {
-    glActiveTexture(GL_TEXTURE0 + slot);
-    glBindTexture(GL_TEXTURE_2D, ID);
+    if (ID != 0) {
+        glDeleteTextures(1, &ID);
+    }
 }
 
 void Texture::loadTexture(const std::string& path) {
+    if (ID != 0) {
+        glDeleteTextures(1, &ID);
+    }
     glGenTextures(1, &ID);
     glBindTexture(GL_TEXTURE_2D, ID);
 

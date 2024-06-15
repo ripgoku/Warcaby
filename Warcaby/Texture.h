@@ -8,7 +8,6 @@ class Texture {
 public:
     Texture();
     ~Texture();
-    void bind(unsigned int slot = 0) const;
     void loadTexture(const std::string& path);
 
 private:

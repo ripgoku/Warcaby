@@ -17,22 +17,18 @@ Engine::Engine(int argc, char** argv) {
     isFullscreen = true;
     windowWidth = 1920;
     windowHeight = 1080;
-    windowTitle = "OpenGL Engine";
+    windowTitle = "Warcaby 3D";
     framesPerSecond = 60;
     rotateCamera = false;
     playerTurn = PLAYER_1;
+    isCursorCaptured = false;
 }
 
 Engine::~Engine() {
+    cleanUp();
 }
 
-void Engine::init(int width, int height, bool fullscreen, const char* name) {
-    windowWidth = width;
-    windowHeight = height;
-    isFullscreen = fullscreen;
-    windowTitle = name;
-    isCursorCaptured = false;
-
+void Engine::init() {
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
     glutInitWindowSize(windowWidth, windowHeight);
     glutCreateWindow(windowTitle);
@@ -73,7 +69,6 @@ void Engine::init(int width, int height, bool fullscreen, const char* name) {
     glutTimerFunc(1000 / framesPerSecond, Engine::timer, 0);
 
     initGL();
-    gameBoard.initializeBoard();
 }
 
 void Engine::initGL() {
@@ -127,12 +122,12 @@ void Engine::update() {
                 return;
             }
             gameBoard.getSelectedPiece()->setXyzPosition(glm::vec3(dx - 3.5, 0.0f, dz - 3.5));
-            gameBoard.movePiece(gameBoard.getSelectedPiece()->getPosition().x, gameBoard.getSelectedPiece()->getPosition().y, gameBoard.getSelectedPiece()->getDestPosition().x, gameBoard.getSelectedPiece()->getDestPosition().y, playerTurn);
+            gameBoard.movePiece((int)gameBoard.getSelectedPiece()->getPosition().x, (int)gameBoard.getSelectedPiece()->getPosition().y, (int)gameBoard.getSelectedPiece()->getDestPosition().x, (int)gameBoard.getSelectedPiece()->getDestPosition().y, playerTurn);
             gameBoard.getSelectedPiece()->setAnimation(false);
-            if (gameBoard.captured == true)
+            if (gameBoard.getCaptured() == true)
             {
-                gameBoard.captured = false;
-                if(gameBoard.canCapture(dx, dz, gameBoard.getSelectedPiece()->getColor()))
+                gameBoard.setCaptured(false);
+                if(gameBoard.canCapture((int)dx, (int)dz, gameBoard.getSelectedPiece()->getColor()))
                     return;
             }
             gameBoard.deselectAllPieces();
@@ -142,7 +137,7 @@ void Engine::update() {
     }
 
     if (!camera.getFreeMode() && rotateCamera) {
-        camera.rotate(0.0f, 10.0f);
+        camera.rotate();
 
         if ((camera.getOrbitAngle() == 275.0f && playerTurn == PLAYER_2) || (camera.getOrbitAngle() == 95.0f && playerTurn == PLAYER_1))
             rotateCamera = false;
@@ -239,8 +234,8 @@ void Engine::mouseMotion(int x, int y) {
     if (isCursorCaptured) {
         static int lastX = windowWidth / 2;
         static int lastY = windowHeight / 2;
-        float xOffset = x - lastX;
-        float yOffset = lastY - y;
+        float xOffset = (float)x - (float)lastX;
+        float yOffset = (float)lastY - (float)y;
 
         camera.processMouseMovement(xOffset, yOffset, 1);
 
@@ -285,8 +280,8 @@ void Engine::mouseClick(int button, int state, int x, int y) {
             gameBoard.selectPiece(boardX, boardY, playerTurn);
         }
         else if (gameBoard.getSelectedPiece() != nullptr) {
-            int startX = gameBoard.getSelectedPiece()->getPosition().x;
-            int startY = gameBoard.getSelectedPiece()->getPosition().y;
+            int startX = (int)gameBoard.getSelectedPiece()->getPosition().x;
+            int startY = (int)gameBoard.getSelectedPiece()->getPosition().y;
             if (gameBoard.isInBounds(startX, startY) && gameBoard.isInBounds(boardX, boardY)) {
                 if (gameBoard.isValidMove(startX, startY, boardX, boardY)) {
                     Piece* piece = gameBoard.getPieceAt(startX, startY);

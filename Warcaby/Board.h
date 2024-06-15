@@ -23,16 +23,18 @@ public:
     bool canCapture(int x, int y, PieceColor color);
     bool checkGameOver();
     void clearBoard();
-    bool captured = false;
+    void setCaptured(bool captur);
+    bool getCaptured();
 
 private:
+    void renderSquare(double x, double y, double z, double size, SquareType sqType);
+
     std::vector<std::vector<Piece*>> board;
     Piece* selectedPiece = nullptr;
-    void renderSquare(double x, double y, double z, double size, SquareType sqType);
     Texture woodTexture;
     Texture woodTexture2;
+    bool captured = false;
     int blackNumber, whiteNumber;
-
     int rows = 8;
     int columns = 8;
     double size = 1.0;

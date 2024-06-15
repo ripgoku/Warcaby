@@ -2,10 +2,10 @@
 
 Camera::Camera() :
     position(glm::vec3(0.0f, 8.0f, 0.0f)),
-    front(glm::vec3(0.0f, 0.0f, -1.0f)),
+    front(glm::vec3(0.0f, 0.0f, 0.0f)),
     up(glm::vec3(0.0f, 1.0f, 0.0f)),
     yaw(-90.0f),
-    pitch(0.0f),
+    pitch(-45.0f),
     movementSpeed(0.4f),
     sensitivity(0.1f),
     freeMode(false),
@@ -31,13 +31,7 @@ void Camera::move(const glm::vec3& offset) {
     updateCameraVectors();
 }
 
-void Camera::rotate(float deltaYaw, float deltaPitch) {
-    yaw += deltaYaw * sensitivity;
-    pitch += deltaPitch * sensitivity;
-
-    if (pitch > 89.0f) pitch = 89.0f;
-    if (pitch < -89.0f) pitch = -89.0f;
-
+void Camera::rotate() {
     updateCameraVectors();
 }
 

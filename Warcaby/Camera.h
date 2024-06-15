@@ -4,18 +4,13 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-enum CameraMode {
-    FREE,
-    GAME_MODE
-};
-
 class Camera {
 public:
     Camera();
     void setPosition(const glm::vec3& newPosition);
     glm::vec3 getPosition();
     void move(const glm::vec3& offset);
-    void rotate(float deltaYaw, float deltaPitch);
+    void rotate();
     void processMouseMovement(float xOffset, float yOffset, bool constrainPitch);
     glm::mat4 getViewMatrix() const;
     glm::vec3 getRightVector() const;

@@ -1,5 +1,4 @@
-#ifndef LIGHT_SOURCE_H
-#define LIGHT_SOURCE_H
+#pragma once
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
@@ -30,5 +29,3 @@ private:
     glm::vec4 diffuse;
     glm::vec4 specular;
 };
-
-#endif // LIGHT_SOURCE_H
