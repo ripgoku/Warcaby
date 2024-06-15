@@ -30,7 +30,6 @@ void Board::renderBoard() {
     glPushMatrix();
     glEnable(GL_TEXTURE_2D);
     woodTexture.loadTexture("Textures/wood.jpg");
-    woodTexture.bind(0);
     glBegin(GL_QUADS);
 
     glTexCoord2f(0.0f, 0.0f); glVertex3f(-4.5f, -1.1f, 4.5f);
@@ -60,7 +59,6 @@ void Board::renderBoard() {
     glPushMatrix();
     glEnable(GL_TEXTURE_2D);
     woodTexture2.loadTexture("Textures/wood2.jpg");
-    woodTexture2.bind(0);
     glBegin(GL_QUADS);
 
     glTexCoord2f(0.0f, 0.0f); glVertex3f(-4.5f, -0.2f, -4.5f);
@@ -157,6 +155,19 @@ bool Board::isValidMove(int startX, int startY, int endX, int endY) {
     PieceType pieceType = piece->getType();
     PieceColor color = piece->getColor();
 
+    if (pieceType != PieceType::KING) {
+        if (color == PieceColor::WHITE) {
+            if (deltaY > 0) {
+                return false;
+            }
+        }
+        else if (color == PieceColor::BLACK) {
+            if (deltaY < 0) {
+                return false;
+            }
+        }
+    }
+
     bool mandatoryCapture = false;
     for (int y = 0; y < 8; ++y) {
         for (int x = 0; x < 8; ++x) {
@@ -171,9 +182,9 @@ bool Board::isValidMove(int startX, int startY, int endX, int endY) {
         if (mandatoryCapture) break;
     }
 
-    if (abs(deltaX) == 2 && abs(deltaY) == 2 && canCapture(startX, startY, board[startY][startX]->getColor())) { // zle
-        int midX = (startX + endX) / 2; //5
-        int midY = (startY + endY) / 2; //5
+    if (abs(deltaX) == 2 && abs(deltaY) == 2 && canCapture(startX, startY, board[startY][startX]->getColor())) {
+        int midX = (startX + endX) / 2;
+        int midY = (startY + endY) / 2;
         Piece* middlePiece = board[midY][midX];
 
         if (middlePiece == nullptr || middlePiece->getColor() == piece->getColor()) {
@@ -185,19 +196,6 @@ bool Board::isValidMove(int startX, int startY, int endX, int endY) {
 
     if (mandatoryCapture) {
         return false;
-    }
-
-    if (pieceType != PieceType::KING) {
-        if (color == PieceColor::WHITE) {
-            if (deltaY > 0) {
-                return false;
-            }
-        }
-        else if (color == PieceColor::BLACK) {
-            if (deltaY < 0) {
-                return false;
-            }
-        }
     }
 
     if (abs(deltaX) == 1 && abs(deltaY) == 1) {
@@ -221,10 +219,10 @@ bool Board::canCapture(int x, int y, PieceColor color) {
     }
 
     for (const auto& dir : directions) {
-        int targetX = x + dir.first; //6, 2
-        int targetY = y + dir.second; //2, 2
-        int midX = (targetX + x) / 2; //5, 3
-        int midY = (targetY + y) / 2; //3, 3
+        int targetX = x + dir.first;
+        int targetY = y + dir.second;
+        int midX = (targetX + x) / 2;
+        int midY = (targetY + y) / 2;
 
         if (isInBounds(targetX, targetY) && isInBounds(midX, midY)) {
             Piece* targetPiece = board[targetY][targetX];
@@ -322,4 +320,12 @@ void Board::clearBoard() {
             }
         }
     }
+}
+
+void Board::setCaptured(bool captur) {
+    this->captured = captur;
+}
+
+bool Board::getCaptured() {
+    return this->captured;
 }

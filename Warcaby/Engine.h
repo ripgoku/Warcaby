@@ -19,17 +19,8 @@ class Engine {
 public:
     Engine(int argc, char** argv);
     ~Engine();
-    void init(int width, int height, bool fullscreen, const char* name);
+    void init();
     void run();
-    static void render();
-    static void reshape(int width, int height);
-    static void keyboard(unsigned char key, int x, int y);
-    static void timer(int value);
-    static void mouseMotion(int x, int y);
-    static void mouseClick(int button, int state, int x, int y);
-    static void setFramesPerSec(int newFramesPerSec);
-    static void switchTurn();
-    static void renderImGui();
 
 private:
     static Camera camera;
@@ -47,6 +38,15 @@ private:
     static void setupViewport();
     static void update();
     static void resetGame();
+    static void renderImGui();
+    static void switchTurn();
+    static void setFramesPerSec(int newFramesPerSec);
+    static void mouseClick(int button, int state, int x, int y);
+    static void mouseMotion(int x, int y);
+    static void render();
+    static void reshape(int width, int height);
+    static void keyboard(unsigned char key, int x, int y);
+    static void timer(int value);
     void cleanUp();
     void setupImGui();
     void cleanupImGui();

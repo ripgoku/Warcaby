@@ -1,5 +1,4 @@
-#ifndef LIGHTING_MANAGER_H
-#define LIGHTING_MANAGER_H
+#pragma once
 
 #include <GL/glew.h>
 #include "LightSource.h"
@@ -14,5 +13,3 @@ public:
 private:
     std::vector<LightSource> lightSources;
 };
-
-#endif // LIGHTING_MANAGER_H

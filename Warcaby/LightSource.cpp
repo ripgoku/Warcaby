@@ -1,7 +1,6 @@
 #include "LightSource.h"
 
 LightSource::LightSource(GLenum lightId) : lightId(lightId), enabled(false) {
-    glEnable(lightId);
 }
 
 void LightSource::enable() {
@@ -20,22 +19,18 @@ bool LightSource::isEnabled() const {
 
 void LightSource::setPosition(const glm::vec4& pos) {
     position = pos;
-    glLightfv(lightId, GL_POSITION, glm::value_ptr(position));
 }
 
 void LightSource::setAmbient(const glm::vec4& amb) {
     ambient = amb;
-    glLightfv(lightId, GL_AMBIENT, glm::value_ptr(ambient));
 }
 
 void LightSource::setDiffuse(const glm::vec4& diff) {
     diffuse = diff;
-    glLightfv(lightId, GL_DIFFUSE, glm::value_ptr(diffuse));
 }
 
 void LightSource::setSpecular(const glm::vec4& spec) {
     specular = spec;
-    glLightfv(lightId, GL_SPECULAR, glm::value_ptr(specular));
 }
 
 GLenum LightSource::getLightId() const {

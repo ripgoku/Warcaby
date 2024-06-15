@@ -7,14 +7,11 @@ Piece::Piece(int x, int y, PieceType type, PieceColor color)
 void Piece::renderPiece() {
     glPushMatrix();
 
-    // Przesuniêcie pionka na odpowiedni¹ pozycjê na planszy
     glTranslatef((GLfloat)xyzPosition.x, (GLfloat)xyzPosition.y, (GLfloat)xyzPosition.z);
     glRotatef(270.0f, 1.0f, 0.0f, 0.0f);
 
-    // Ustawienie koloru pionka
     setMaterial();
 
-    // Renderowanie podstawowego pionka jako cylinder
     renderCylinder(0.4f, 0.2f, 128);
 
     if (type == PieceType::KING) {
@@ -49,10 +46,10 @@ void Piece::setMaterial() {
     else {
         switch (color) {
         case PieceColor::BLACK:
-            setMaterialColor(0.1f, 0.1f, 0.1f); // Ustawienie koloru materia³u na czarny
+            setMaterialColor(0.1f, 0.1f, 0.1f); // czarny
             break;
         case PieceColor::WHITE:
-            setMaterialColor(0.9f, 0.9f, 0.9f); // Ustawienie koloru materia³u na bia³y
+            setMaterialColor(0.9f, 0.9f, 0.9f); // bia³y
             break;
         }
     }
@@ -81,15 +78,6 @@ void Piece::renderCylinder(float radius, float height, int slices) {
 }
 
 void Piece::renderKingCrown() {
-    // Renderowanie dodatkowego elementu reprezentuj¹cego koronê
-    // To mo¿e byæ prosta reprezentacja np. ma³y sto¿ek lub inny kszta³t
-    /*glPushMatrix();
-    glTranslatef((GLfloat)xyzPosition.x, 0.2f, (GLfloat)xyzPosition.z);
-    glRotatef(270.0f, 1.0f, 0.0f, 0.0f);
-    setMaterialColor(1.0f, 0.84f, 0.0f);
-    glutSolidTorus(0.05f, 0.3f, 32, 32);
-    glPopMatrix();*/
-
     glTranslatef(0.0f, 0.0f, 0.2f);
     glutSolidTorus(0.05f, 0.3f, 32, 128);
     glTranslatef(0.0f, 0.0f, -0.2f);
