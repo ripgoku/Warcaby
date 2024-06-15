@@ -120,6 +120,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y "$(SolutionDir)Linking\bin\*.dll" "$(TargetDir)";
+xcopy /Y "$(SolutionDir)Linking\bin\*.ini" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -141,6 +145,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\Linking\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32.lib;freeglut.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /Y "$(SolutionDir)Linking\bin\*.dll" "$(TargetDir)";
+xcopy /Y "$(SolutionDir)Linking\bin\*.ini" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\imgui\imgui.cpp" />
@@ -183,6 +191,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\x64\Release\Textures\W3d.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Linking\bin\freeglut.dll" />
+    <None Include="..\Linking\bin\glew32.dll" />
+    <None Include="..\Linking\bin\imgui.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
