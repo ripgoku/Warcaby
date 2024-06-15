@@ -28,6 +28,9 @@
     <Filter Include="Release\Textures">
       <UniqueIdentifier>{4029f770-0688-4e5a-998c-dcf458c6452f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib/x64">
+      <UniqueIdentifier>{d2800892-8bf2-4b4e-b110-b268a628de28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Warcaby.cpp">
@@ -167,5 +170,16 @@
     <None Include="..\x64\Debug\imgui.ini">
       <Filter>Debug</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\Linking\lib\x64\freeglut.lib">
+      <Filter>lib/x64</Filter>
+    </Library>
+    <Library Include="..\Linking\lib\x64\glew32.lib">
+      <Filter>lib/x64</Filter>
+    </Library>
+    <Library Include="..\Linking\lib\x64\glew32s.lib">
+      <Filter>lib/x64</Filter>
+    </Library>
   </ItemGroup>
 </Project>
