@@ -19,6 +19,12 @@
     <Filter Include="Pliki źródłowe\imgui">
       <UniqueIdentifier>{4e07715d-d9e5-464f-9946-4ea5c66e8603}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Release">
+      <UniqueIdentifier>{87932e19-e4c0-4978-9a43-3091a38f2f35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{4b6914ee-ba3b-4d0f-93af-740c7b269c16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Warcaby.cpp">
@@ -131,8 +137,26 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Linking\bin\freeglut.dll" />
-    <None Include="..\Linking\bin\glew32.dll" />
-    <None Include="..\Linking\bin\imgui.ini" />
+    <None Include="..\x64\Release\Warcaby.exe">
+      <Filter>Release</Filter>
+    </None>
+    <None Include="..\x64\Release\imgui.ini">
+      <Filter>Release</Filter>
+    </None>
+    <None Include="..\x64\Release\glew32.dll">
+      <Filter>Release</Filter>
+    </None>
+    <None Include="..\x64\Release\freeglut.dll">
+      <Filter>Release</Filter>
+    </None>
+    <None Include="..\x64\Debug\freeglut.dll">
+      <Filter>Debug</Filter>
+    </None>
+    <None Include="..\x64\Debug\glew32.dll">
+      <Filter>Debug</Filter>
+    </None>
+    <None Include="..\x64\Debug\imgui.ini">
+      <Filter>Debug</Filter>
+    </None>
   </ItemGroup>
 </Project>

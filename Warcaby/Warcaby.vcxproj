@@ -121,8 +121,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(SolutionDir)Linking\bin\*.dll" "$(TargetDir)";
-xcopy /Y "$(SolutionDir)Linking\bin\*.ini" "$(TargetDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,8 +146,8 @@ xcopy /Y "$(SolutionDir)Linking\bin\*.ini" "$(TargetDir)"</Command>
       <AdditionalDependencies>opengl32.lib;glew32.lib;freeglut.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /Y "$(SolutionDir)Linking\bin\*.dll" "$(TargetDir)";
-xcopy /Y "$(SolutionDir)Linking\bin\*.ini" "$(TargetDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -193,9 +193,13 @@ xcopy /Y "$(SolutionDir)Linking\bin\*.ini" "$(TargetDir)"</Command>
     <Image Include="..\x64\Release\Textures\W3d.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Linking\bin\freeglut.dll" />
-    <None Include="..\Linking\bin\glew32.dll" />
-    <None Include="..\Linking\bin\imgui.ini" />
+    <None Include="..\x64\Debug\freeglut.dll" />
+    <None Include="..\x64\Debug\glew32.dll" />
+    <None Include="..\x64\Debug\imgui.ini" />
+    <None Include="..\x64\Release\freeglut.dll" />
+    <None Include="..\x64\Release\glew32.dll" />
+    <None Include="..\x64\Release\imgui.ini" />
+    <None Include="..\x64\Release\Warcaby.exe" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
