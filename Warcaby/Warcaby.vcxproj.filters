@@ -31,6 +31,9 @@
     <Filter Include="lib/x64">
       <UniqueIdentifier>{d2800892-8bf2-4b4e-b110-b268a628de28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Warcaby-exe">
+      <UniqueIdentifier>{04758081-df3e-4081-8818-90760e07170a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Warcaby.cpp">
@@ -149,9 +152,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\x64\Release\Warcaby.exe">
-      <Filter>Release</Filter>
-    </None>
     <None Include="..\x64\Release\imgui.ini">
       <Filter>Release</Filter>
     </None>
@@ -169,6 +169,18 @@
     </None>
     <None Include="..\x64\Debug\imgui.ini">
       <Filter>Debug</Filter>
+    </None>
+    <None Include="..\Warcaby-exe\freeglut.dll">
+      <Filter>Warcaby-exe</Filter>
+    </None>
+    <None Include="..\Warcaby-exe\glew32.dll">
+      <Filter>Warcaby-exe</Filter>
+    </None>
+    <None Include="..\Warcaby-exe\imgui.ini">
+      <Filter>Warcaby-exe</Filter>
+    </None>
+    <None Include="..\Warcaby-exe\Warcaby.exe">
+      <Filter>Warcaby-exe</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
