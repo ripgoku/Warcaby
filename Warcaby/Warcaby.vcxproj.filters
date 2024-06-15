@@ -25,7 +25,7 @@
     <Filter Include="Debug">
       <UniqueIdentifier>{4b6914ee-ba3b-4d0f-93af-740c7b269c16}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Textures">
+    <Filter Include="Release\Textures">
       <UniqueIdentifier>{4029f770-0688-4e5a-998c-dcf458c6452f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -139,10 +139,10 @@
       <Filter>Pliki zasobów</Filter>
     </Image>
     <Image Include="..\x64\Release\Textures\wood.jpg">
-      <Filter>Textures</Filter>
+      <Filter>Release\Textures</Filter>
     </Image>
     <Image Include="..\x64\Release\Textures\wood2.jpg">
-      <Filter>Textures</Filter>
+      <Filter>Release\Textures</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
