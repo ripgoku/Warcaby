@@ -191,6 +191,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\x64\Release\Textures\W3d.ico" />
+    <Image Include="..\x64\Release\Textures\wood.jpg" />
+    <Image Include="..\x64\Release\Textures\wood2.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\x64\Debug\freeglut.dll" />
