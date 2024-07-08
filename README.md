@@ -14,12 +14,17 @@ Zasady gry
 
 • Jeśli pole jest zajęte przez pionek przeciwnika, a bezpośrednio za nim jest puste pole, 
 można wtedy zbić tego pionka.
+
 • Jeśli gracz ma możliwość bicia, to musi je wykonać. 
+
 • Jeśli po biciu gracz ma możliwość kolejnego bicia, to musi je wykonać w tym samym 
 posunięciu.
+
 • Jeśli możliwe jest więcej niż jedno bicie, gracz może dowolnie wybrać.
+
 • Pionek, który stanął na ostatnim polu planszy po stronie przeciwnika, staje się damką. 
 Od tego momentu może poruszać się oraz bić do tyłu.
+
 • Wygrana następuje po zbiciu wszystkich pionków przeciwnika.
 
 ![image](https://github.com/ripgoku/Warcaby/assets/105516796/a21f987c-052e-4c12-99b8-442fc2c268bf)
