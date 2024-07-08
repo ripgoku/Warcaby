@@ -1,10 +1,15 @@
 Zasady gry
 
 • Zasady gry inspirowane są warcabami angielskimi.
+
 • Gra przeznaczona jest dla 2 osób.
+
 • Po każdym ruchu następuje zmiana tury.
+
 • Nie ma ograniczeń czasowych.
+
 • Plansza jest 8x8. Każdy gracz ma 12 pionków.
+
 • Pionki poruszają się do przodu po skosie o jedno pole, jeżeli nie jest ono zajęte.
 • Jeśli pole jest zajęte przez pionek przeciwnika, a bezpośrednio za nim jest puste pole, 
 można wtedy zbić tego pionka.
