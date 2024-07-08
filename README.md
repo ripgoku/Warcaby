@@ -11,6 +11,7 @@ Zasady gry
 • Plansza jest 8x8. Każdy gracz ma 12 pionków.
 
 • Pionki poruszają się do przodu po skosie o jedno pole, jeżeli nie jest ono zajęte.
+
 • Jeśli pole jest zajęte przez pionek przeciwnika, a bezpośrednio za nim jest puste pole, 
 można wtedy zbić tego pionka.
 • Jeśli gracz ma możliwość bicia, to musi je wykonać. 
